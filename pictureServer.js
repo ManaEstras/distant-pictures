@@ -77,6 +77,8 @@ var Webcam = NodeWebcam.create( opts ); //starting up the webcam
 var imageInvert = require('image-invert');
 var nWorkers = 4;
 
+var imageGamma = require('image-gamma');
+
 //
 
 //---------------------- SERIAL COMMUNICATION (Arduino) ----------------------//
@@ -128,6 +130,7 @@ io.on('connect', function(socket) {
     io.emit('newPicture',(imageName+'.jpg')); ///Lastly, the new name is send to the client web browser.
     /// The browser will take this new name and load the picture from the public folder.
     imageInvert(IMAGE_DATA, 4);
+    imageGamma(IMAGE_DATA, { adjustment: 30 });
   });
 
   });
